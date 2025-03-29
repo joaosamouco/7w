@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>7 Samoucos - 7 Wonders Score Calculator</title>
+    <meta name="title" content="7 Samoucos - 7 Wonders Score Calculator" />
+    <meta
+      name="description"
+      content="A sleek, dark-themed scoring assistant for the board game 7 Wonders. Calculate your victory points easily with this modern web tool."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="7 Samoucos - 7 Wonders Score Calculator"
+    />
+    <meta
+      property="og:description"
+      content="A sleek, dark-themed scoring assistant for the board game 7 Wonders. Calculate your victory points easily with this modern web tool."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta
+      property="twitter:title"
+      content="7 Samoucos - 7 Wonders Score Calculator"
+    />
+    <meta
+      property="twitter:description"
+      content="A sleek, dark-themed scoring assistant for the board game 7 Wonders. Calculate your victory points easily with this modern web tool."
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#09090b" />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="site-header">
+        <h1>7 Samoucos</h1>
+        <p class="subtitle">A 7 Wonders scoring assistant</p>
+      </header>
+
+      <div class="scoring-section" data-card-type="wonder">
+        <h2>Wonders</h2>
+        <div class="wonders">
+          <label>Wonder Points:</label>
+          <input type="number" id="wonder-points" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="treasury">
+        <h2>Treasury (Coins)</h2>
+        <div class="coins">
+          <label>Number of Coins:</label>
+          <input type="number" id="coins" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="military">
+        <h2>Military Conflicts (Red Cards)</h2>
+        <div class="military-points">
+          <label>Military Points:</label>
+          <input type="number" id="military-points" value="0" />
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="civilian">
+        <h2>Civilian (Blue Cards)</h2>
+        <div class="civilian">
+          <label>Victory Points:</label>
+          <input type="number" id="civilian-points" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="commercial">
+        <h2>Commercial (Yellow Cards)</h2>
+        <div class="commercial">
+          <label>Victory Points:</label>
+          <input type="number" id="commercial-points" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="science">
+        <h2>Science (Green Cards)</h2>
+        <div class="science-info">
+          <p>Science scoring is calculated as follows:</p>
+          <ul>
+            <li>Each set of different symbols (1 of each) = 7 points</li>
+            <li>Same symbols are squared (e.g., 3 compasses = 9 points)</li>
+          </ul>
+        </div>
+        <div class="science">
+          <div class="symbol">
+            <label><span class="science-symbol">⌖</span> Compass</label>
+            <input type="number" id="compass" value="0" min="0" />
+            <span class="points-preview" id="compass-points">0 points</span>
+          </div>
+          <div class="symbol">
+            <label><span class="science-symbol">⚙</span> Gears</label>
+            <input type="number" id="gears" value="0" min="0" />
+            <span class="points-preview" id="gears-points">0 points</span>
+          </div>
+          <div class="symbol">
+            <label><span class="science-symbol">𐃏</span> Tablets</label>
+            <input type="number" id="tablets" value="0" min="0" />
+            <span class="points-preview" id="tablets-points">0 points</span>
+          </div>
+        </div>
+        <div class="science-total">
+          <p>Sets bonus: <span id="science-sets">0</span> points</p>
+          <p>Total science points: <span id="science-total">0</span></p>
+        </div>
+      </div>
+
+      <div class="scoring-section" data-card-type="guild">
+        <h2>Guilds (Purple Cards)</h2>
+        <div class="guilds">
+          <label>Victory Points:</label>
+          <input type="number" id="guild-points" value="0" min="0" />
+        </div>
+      </div>
+
+      <div class="total-score">
+        <h2>Total Score: <span id="total">0</span></h2>
+      </div>
+
+      <button class="reset-button" id="reset-button">RESET</button>
+
+      <footer class="footer">
+        <p>
+          Built with <span class="heart">♥</span> using
+          <a href="https://cursor.sh" target="_blank">Cursor</a> &
+          <a href="https://anthropic.com/claude" target="_blank">Claude</a>
+        </p>
+        <p class="source-code">
+          View source code on
+          <a href="https://github.com/joaosamouco/7w" target="_blank">GitHub</a>
+        </p>
+      </footer>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
