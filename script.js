@@ -30,6 +30,7 @@ resetButton.addEventListener('click', () => {
     });
     calculateTotal();
     updateSciencePreview();
+    window.scrollTo(0, 0);
 });
 
 // Add event listeners to all inputs
