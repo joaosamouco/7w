@@ -286,6 +286,17 @@ input[type="number"]:focus {
     margin-top: 2rem;
     padding: 1rem;
   }
+
+  .science-card-header {
+    margin-bottom: 0.75rem;
+    text-align: center;
+    display: flex;
+  }
+
+  .science-card .points-preview {
+    font-size: 0.85rem;
+    color: var(--muted-text);
+  }
 }
 
 .science-symbol {
@@ -345,5 +356,245 @@ input[type="number"]:focus {
   }
   50% {
     transform: scale(1.1);
+  }
+}
+
+/* Input Stepper Styles */
+.input-stepper {
+  display: flex;
+  width: 100%;
+  height: 44px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.input-stepper input[type="number"] {
+  flex: 1;
+  border: none;
+  text-align: center;
+  -moz-appearance: textfield; /* Hide spinners in Firefox */
+  border-radius: 0;
+  font-size: 1.1rem;
+  padding: 0;
+  margin: 0;
+}
+
+/* Hide spinners in Chrome, Safari, Edge, Opera */
+.input-stepper input[type="number"]::-webkit-outer-spin-button,
+.input-stepper input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper-btn {
+  width: 44px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.stepper-btn:active {
+  background-color: var(--primary-color);
+  transform: scale(0.95);
+}
+
+.stepper-btn:focus {
+  outline: none;
+}
+
+/* Data attribute-based colors for buttons */
+[data-card-type="military"] .stepper-btn:active {
+  background-color: var(--military-color);
+}
+
+[data-card-type="treasury"] .stepper-btn:active {
+  background-color: var(--treasury-color);
+}
+
+[data-card-type="wonder"] .stepper-btn:active {
+  background-color: var(--wonder-color);
+}
+
+[data-card-type="science"] .stepper-btn:active {
+  background-color: var(--science-color);
+}
+
+[data-card-type="civilian"] .stepper-btn:active {
+  background-color: var(--civilian-color);
+}
+
+[data-card-type="commercial"] .stepper-btn:active {
+  background-color: var(--commercial-color);
+}
+
+[data-card-type="guild"] .stepper-btn:active {
+  background-color: var(--guild-color);
+}
+
+/* Make sure the science section still works properly with the new inputs */
+@media (max-width: 600px) {
+  .symbol {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .symbol .input-stepper {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .points-preview {
+    align-self: flex-end;
+  }
+}
+
+/* Add tactile feedback for mobile */
+@media (hover: none) {
+  .stepper-btn {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .stepper-btn:active {
+    opacity: 0.7;
+  }
+}
+
+/* Science Section Redesign */
+.science-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.science-card {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.science-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.science-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.science-card-header .science-symbol {
+  font-size: 2rem;
+  margin-right: 0.75rem;
+}
+
+.science-card-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.science-card-footer {
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+.science-card .points-preview {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.science-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.stat-box:hover {
+  transform: translateY(-2px);
+}
+
+.stat-box.sets {
+  border-left: 3px solid var(--science-color);
+}
+
+.stat-box.total {
+  border-left: 3px solid var(--primary-color);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted-text);
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.stat-points {
+  font-size: 0.9rem;
+  color: var(--muted-text);
+}
+
+/* Update mobile styles for science cards */
+@media (max-width: 600px) {
+  .science-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .science-card {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .science-card-header {
+    margin-bottom: 0.75rem;
+    text-align: center;
+  }
+
+  .science-card .input-stepper {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+
+  .science-card-footer {
+    width: 100%;
+    text-align: center;
+  }
+
+  .science-stats {
+    grid-template-columns: 1fr 1fr;
   }
 }

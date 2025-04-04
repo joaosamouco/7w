@@ -57,7 +57,15 @@
         <h2>Wonders</h2>
         <div class="wonders">
           <label>Wonder Points:</label>
-          <input type="number" id="wonder-points" value="0" min="0" />
+          <div class="input-stepper">
+            <button class="stepper-btn decrement" data-input="wonder-points">
+              −
+            </button>
+            <input type="number" id="wonder-points" value="0" min="0" />
+            <button class="stepper-btn increment" data-input="wonder-points">
+              +
+            </button>
+          </div>
         </div>
       </div>
 
@@ -65,7 +73,11 @@
         <h2>Treasury (Coins)</h2>
         <div class="coins">
           <label>Number of Coins:</label>
-          <input type="number" id="coins" value="0" min="0" />
+          <div class="input-stepper">
+            <button class="stepper-btn decrement" data-input="coins">−</button>
+            <input type="number" id="coins" value="0" min="0" />
+            <button class="stepper-btn increment" data-input="coins">+</button>
+          </div>
         </div>
       </div>
 
@@ -73,7 +85,15 @@
         <h2>Military Conflicts (Red Cards)</h2>
         <div class="military-points">
           <label>Military Points:</label>
-          <input type="number" id="military-points" value="0" />
+          <div class="input-stepper">
+            <button class="stepper-btn decrement" data-input="military-points">
+              −
+            </button>
+            <input type="number" id="military-points" value="0" />
+            <button class="stepper-btn increment" data-input="military-points">
+              +
+            </button>
+          </div>
         </div>
       </div>
 
@@ -81,7 +101,15 @@
         <h2>Civilian (Blue Cards)</h2>
         <div class="civilian">
           <label>Victory Points:</label>
-          <input type="number" id="civilian-points" value="0" min="0" />
+          <div class="input-stepper">
+            <button class="stepper-btn decrement" data-input="civilian-points">
+              −
+            </button>
+            <input type="number" id="civilian-points" value="0" min="0" />
+            <button class="stepper-btn increment" data-input="civilian-points">
+              +
+            </button>
+          </div>
         </div>
       </div>
 
@@ -89,7 +117,21 @@
         <h2>Commercial (Yellow Cards)</h2>
         <div class="commercial">
           <label>Victory Points:</label>
-          <input type="number" id="commercial-points" value="0" min="0" />
+          <div class="input-stepper">
+            <button
+              class="stepper-btn decrement"
+              data-input="commercial-points"
+            >
+              −
+            </button>
+            <input type="number" id="commercial-points" value="0" min="0" />
+            <button
+              class="stepper-btn increment"
+              data-input="commercial-points"
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
 
@@ -102,26 +144,79 @@
             <li>Same symbols are squared (e.g., 3 compasses = 9 points)</li>
           </ul>
         </div>
-        <div class="science">
-          <div class="symbol">
-            <label><span class="science-symbol">⌖</span> Compass</label>
-            <input type="number" id="compass" value="0" min="0" />
-            <span class="points-preview" id="compass-points">0 points</span>
+
+        <div class="science-grid">
+          <div class="science-card">
+            <div class="science-card-header">
+              <span class="science-symbol">⌖</span>
+              <h3>Compass</h3>
+            </div>
+            <div class="input-stepper">
+              <button class="stepper-btn decrement" data-input="compass">
+                −
+              </button>
+              <input type="number" id="compass" value="0" min="0" />
+              <button class="stepper-btn increment" data-input="compass">
+                +
+              </button>
+            </div>
+            <div class="science-card-footer">
+              <span class="points-preview" id="compass-points">0 points</span>
+            </div>
           </div>
-          <div class="symbol">
-            <label><span class="science-symbol">⚙</span> Gears</label>
-            <input type="number" id="gears" value="0" min="0" />
-            <span class="points-preview" id="gears-points">0 points</span>
+
+          <div class="science-card">
+            <div class="science-card-header">
+              <span class="science-symbol">⚙</span>
+              <h3>Gears</h3>
+            </div>
+            <div class="input-stepper">
+              <button class="stepper-btn decrement" data-input="gears">
+                −
+              </button>
+              <input type="number" id="gears" value="0" min="0" />
+              <button class="stepper-btn increment" data-input="gears">
+                +
+              </button>
+            </div>
+            <div class="science-card-footer">
+              <span class="points-preview" id="gears-points">0 points</span>
+            </div>
           </div>
-          <div class="symbol">
-            <label><span class="science-symbol">𐃏</span> Tablets</label>
-            <input type="number" id="tablets" value="0" min="0" />
-            <span class="points-preview" id="tablets-points">0 points</span>
+
+          <div class="science-card">
+            <div class="science-card-header">
+              <span class="science-symbol">𐃏</span>
+              <h3>Tablets</h3>
+            </div>
+            <div class="input-stepper">
+              <button class="stepper-btn decrement" data-input="tablets">
+                −
+              </button>
+              <input type="number" id="tablets" value="0" min="0" />
+              <button class="stepper-btn increment" data-input="tablets">
+                +
+              </button>
+            </div>
+            <div class="science-card-footer">
+              <span class="points-preview" id="tablets-points">0 points</span>
+            </div>
           </div>
         </div>
-        <div class="science-total">
-          <p>Sets bonus: <span id="science-sets">0</span> points</p>
-          <p>Total science points: <span id="science-total">0</span></p>
+
+        <div class="science-stats">
+          <div class="stat-box sets">
+            <div class="stat-label">Complete Sets</div>
+            <div class="stat-value" id="science-sets-count">0</div>
+            <div class="stat-points">
+              <span id="science-sets">0</span> points
+            </div>
+          </div>
+          <div class="stat-box total">
+            <div class="stat-label">Total Science</div>
+            <div class="stat-value" id="science-total">0</div>
+            <div class="stat-points">points</div>
+          </div>
         </div>
       </div>
 
@@ -129,7 +224,15 @@
         <h2>Guilds (Purple Cards)</h2>
         <div class="guilds">
           <label>Victory Points:</label>
-          <input type="number" id="guild-points" value="0" min="0" />
+          <div class="input-stepper">
+            <button class="stepper-btn decrement" data-input="guild-points">
+              −
+            </button>
+            <input type="number" id="guild-points" value="0" min="0" />
+            <button class="stepper-btn increment" data-input="guild-points">
+              +
+            </button>
+          </div>
         </div>
       </div>
 
