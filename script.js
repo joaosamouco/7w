@@ -189,6 +189,7 @@ const setupStepperButtons = () => {
   stepperButtons.forEach((button) => {
     let pressTimer;
     let stepInterval;
+    let isTapping = false;
 
     // Mouse events for desktop
     button.addEventListener("mousedown", () => {
@@ -211,20 +212,39 @@ const setupStepperButtons = () => {
 
     // Touch events for mobile
     button.addEventListener("touchstart", (e) => {
-      e.preventDefault(); // Prevent double firing on mobile
+      isTapping = true;
+
       pressTimer = setTimeout(() => {
+        // For long press only
+        isTapping = false;
         stepInterval = setInterval(() => {
           button.click();
         }, 100);
       }, 500);
     });
 
-    button.addEventListener("touchend", () => {
+    button.addEventListener("touchend", (e) => {
+      // If it was a tap (not a long press), manually trigger a click
+      if (isTapping) {
+        e.preventDefault(); // Prevent any unwanted default behavior
+        // Manually call the click function to increment/decrement
+        button.click();
+      }
+
       clearTimeout(pressTimer);
       clearInterval(stepInterval);
+      isTapping = false;
     });
 
     button.addEventListener("touchcancel", () => {
+      clearTimeout(pressTimer);
+      clearInterval(stepInterval);
+      isTapping = false;
+    });
+
+    button.addEventListener("touchmove", () => {
+      // If user is scrolling/moving, cancel the tap
+      isTapping = false;
       clearTimeout(pressTimer);
       clearInterval(stepInterval);
     });
