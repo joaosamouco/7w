@@ -163,11 +163,11 @@ const setupStepperButtons = () => {
       if (button.classList.contains("increment")) {
         value += 1;
       } else if (button.classList.contains("decrement")) {
-        value = Math.max(0, value - 1);
-
-        // Allow negative values only for military points
+        // Special handling for military points, allow negative values
         if (inputId === "military-points") {
-          value = Math.max(value, -6); // Military can go down to -6
+          value = Math.max(-6, value - 1); // Military can go down to -6
+        } else {
+          value = Math.max(0, value - 1); // Other values can't go below 0
         }
       }
 
