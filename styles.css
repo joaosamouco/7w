@@ -489,22 +489,37 @@ input[type="number"]:focus {
 
 .science-info {
   margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: rgba(15, 14, 23, 0.4);
+  padding: 1rem 1.25rem;
+  background: rgba(15, 14, 23, 0.25);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border-radius: var(--border-radius);
-  border: 1px solid var(--glass-border);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .science-info p {
   color: var(--muted-text);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
 }
 
 .science-info ul {
   list-style-position: inside;
   color: var(--muted-text);
+  margin-left: 0.5rem;
+}
+
+.science-info li {
+  margin-bottom: 0.25rem;
+  line-height: 1.4;
+}
+
+.science-info li:last-child {
+  margin-bottom: 0;
 }
 
 .points-preview {
