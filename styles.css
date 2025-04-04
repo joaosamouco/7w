@@ -1,22 +1,33 @@
 :root {
-  --primary-color: #94a3b8;
-  --secondary-color: #64748b;
-  --background-color: #09090b;
-  --section-bg: #18181b;
-  --text-color: #e4e4e7;
-  --muted-text: #71717a;
+  /* New neon color palette */
+  --primary-color: #0fe0e0; /* Neon cyan */
+  --secondary-color: #fe53bb; /* Hot pink */
+  --tertiary-color: #5e33ff; /* Electric purple */
+  --accent-color: #09fbd3; /* Mint green */
+  --background-color: #0f0e17; /* Dark background with blue undertones */
+  --section-bg: rgba(15, 14, 23, 0.5); /* Semi-transparent for glass effect */
+  --text-color: #f8f9ff; /* Bright white with blue tint */
+  --muted-text: #8f8dbb; /* Lighter muted text */
   --border-radius: 12px;
   --spacing: 20px;
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.13);
+  --glass-shadow: rgba(0, 0, 0, 0.25);
+  --glow-radius: 20px;
+  --transition-time: 0.3s;
 
-  /* Card type colors - more muted versions */
-  --military-color: #dc2626; /* Less vibrant red */
-  --treasury-color: #ca8a04; /* Darker gold */
-  --wonder-color: #9333ea; /* Deeper purple */
-  --science-color: #15803d; /* Darker green */
-  --civilian-color: #2563eb; /* Deeper blue */
-  --commercial-color: #ca8a04; /* Darker yellow (same as treasury) */
-  --guild-color: #c026d3; /* Deeper purple */
+  /* Vibrant card type colors */
+  --military-color: #ff2b4e; /* Neon red */
+  --treasury-color: #ffd500; /* Bright gold */
+  --wonder-color: #9d4edd; /* Bright purple */
+  --science-color: #04e762; /* Neon green */
+  --civilian-color: #00b4fc; /* Bright blue */
+  --commercial-color: #fcb404; /* Bright orange */
+  --guild-color: #e03fcb; /* Magenta */
 }
+
+/* Add a custom font */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap");
 
 * {
   margin: 0;
@@ -24,19 +35,106 @@
   box-sizing: border-box;
 }
 
+/* Animated background */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Floating animation for cards */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Glow pulse animation */
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 var(--glow-radius) rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 calc(var(--glow-radius) * 1.5) rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Text glow animation */
+@keyframes textGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5),
+      0 0 30px rgba(var(--secondary-color-rgb), 0.3);
+  }
+}
+
+/* Score count animation */
+@keyframes countUp {
+  from {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-    Arial, sans-serif;
-  background-color: var(--background-color);
+  font-family: "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  background: linear-gradient(
+    45deg,
+    var(--background-color),
+    #17143a,
+    #0c0c1d,
+    #180b28
+  );
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
   color: var(--text-color);
   line-height: 1.6;
   padding: var(--spacing);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Add background noise effect */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  z-index: -1;
+  pointer-events: none;
 }
 
 .container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding-bottom: var(--spacing);
+  position: relative; /* For z-index layering */
 }
 
 .controls {
@@ -45,100 +143,257 @@ body {
   margin-bottom: 2rem;
 }
 
+/* Redesigned reset button */
 .reset-button {
   width: auto;
   margin: 3rem auto 0;
   display: block;
-  background-color: var(--section-bg);
+  background: linear-gradient(
+    135deg,
+    var(--tertiary-color),
+    var(--secondary-color)
+  );
   color: var(--text-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: none;
   padding: 1rem 4rem;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-time) ease;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   border-radius: var(--border-radius);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(254, 83, 187, 0.4);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.reset-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: 0.5s;
 }
 
 .reset-button:hover {
-  background-color: var(--primary-color);
-  color: var(--background-color);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(254, 83, 187, 0.6);
+}
+
+.reset-button:hover::before {
+  left: 100%;
 }
 
 .reset-button:active {
   transform: translateY(0);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(254, 83, 187, 0.4);
 }
 
+/* Enhanced header */
 .site-header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  position: relative;
 }
 
+/* Animated title */
 h1 {
-  color: var(--primary-color);
-  font-size: 3.5rem;
+  color: var(--text-color);
+  font-size: 4.5rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 0.5rem;
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color),
+    var(--accent-color)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientAnimation 5s ease infinite;
+  text-shadow: 0 0 20px rgba(15, 224, 224, 0.3);
 }
 
 .subtitle {
   color: var(--muted-text);
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 400;
+  position: relative;
+  display: inline-block;
 }
 
+.subtitle::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(to right, var(--primary-color), transparent);
+}
+
+/* Glass effect for scoring sections */
 .scoring-section {
-  background-color: var(--section-bg);
+  background: rgba(15, 14, 23, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: var(--border-radius);
   padding: var(--spacing);
   margin-bottom: var(--spacing);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  transition: all var(--transition-time) ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Add subtle border glow based on card type */
+[data-card-type="military"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(255, 43, 78, 0.2);
+}
+
+[data-card-type="treasury"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(255, 213, 0, 0.2);
+}
+
+[data-card-type="wonder"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(157, 78, 221, 0.2);
+}
+
+[data-card-type="science"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(4, 231, 98, 0.2);
+}
+
+[data-card-type="civilian"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(0, 180, 252, 0.2);
+}
+
+[data-card-type="commercial"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(252, 180, 4, 0.2);
+}
+
+[data-card-type="guild"] {
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(224, 63, 203, 0.2);
+}
+
+/* Glass shine effect */
+.scoring-section::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
 }
 
 .scoring-section:hover {
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px var(--glass-shadow);
+}
+
+[data-card-type="military"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(255, 43, 78, 0.3);
+}
+
+[data-card-type="treasury"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(255, 213, 0, 0.3);
+}
+
+[data-card-type="wonder"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(157, 78, 221, 0.3);
+}
+
+[data-card-type="science"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(4, 231, 98, 0.3);
+}
+
+[data-card-type="civilian"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(0, 180, 252, 0.3);
+}
+
+[data-card-type="commercial"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(252, 180, 4, 0.3);
+}
+
+[data-card-type="guild"]:hover {
+  box-shadow: 0 15px 35px var(--glass-shadow), 0 0 20px rgba(224, 63, 203, 0.3);
 }
 
 h2 {
   margin-bottom: 1.5rem;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 600;
+  position: relative;
+  display: inline-block;
 }
 
-/* Specific heading colors */
+/* Underline effect for headings */
+h2::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Enhanced heading colors with text glow */
 [data-card-type="military"] h2 {
   color: var(--military-color);
+  text-shadow: 0 0 10px rgba(255, 43, 78, 0.5);
 }
 
 [data-card-type="treasury"] h2 {
   color: var(--treasury-color);
+  text-shadow: 0 0 10px rgba(255, 213, 0, 0.5);
 }
 
 [data-card-type="wonder"] h2 {
   color: var(--wonder-color);
+  text-shadow: 0 0 10px rgba(157, 78, 221, 0.5);
 }
 
 [data-card-type="science"] h2 {
   color: var(--science-color);
+  text-shadow: 0 0 10px rgba(4, 231, 98, 0.5);
 }
 
 [data-card-type="civilian"] h2 {
   color: var(--civilian-color);
+  text-shadow: 0 0 10px rgba(0, 180, 252, 0.5);
 }
 
 [data-card-type="commercial"] h2 {
   color: var(--commercial-color);
+  text-shadow: 0 0 10px rgba(252, 180, 4, 0.5);
 }
 
 [data-card-type="guild"] h2 {
   color: var(--guild-color);
+  text-shadow: 0 0 10px rgba(224, 63, 203, 0.5);
 }
 
 .science {
@@ -162,7 +417,9 @@ h2 {
 label {
   font-weight: 500;
   color: var(--text-color);
-  font-size: 0.95rem;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 input[type="number"] {
@@ -172,26 +429,29 @@ input[type="number"] {
   border-radius: var(--border-radius);
   font-size: 1rem;
   width: 100%;
-  transition: all 0.2s ease;
+  transition: all var(--transition-time) ease;
   color: var(--text-color);
 }
 
 input[type="number"]:focus {
   outline: none;
-  border-color: var(--secondary-color);
-  box-shadow: 0 0 0 2px rgba(100, 116, 139, 0.2);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(15, 224, 224, 0.3);
 }
 
 .science-info {
   margin-bottom: 1.5rem;
-  padding: 1rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  background: rgba(15, 14, 23, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   border-radius: var(--border-radius);
+  border: 1px solid var(--glass-border);
 }
 
 .science-info p {
   color: var(--muted-text);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
 .science-info ul {
@@ -200,9 +460,12 @@ input[type="number"]:focus {
 }
 
 .points-preview {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-color);
   margin-top: 0.25rem;
+  font-weight: 600;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  animation: countUp 0.3s ease-out;
 }
 
 .science-total {
@@ -219,33 +482,482 @@ input[type="number"]:focus {
 .science-total span {
   color: var(--text-color);
   font-weight: 600;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
+/* Fancy total score display */
 .total-score {
   background: linear-gradient(
     135deg,
-    var(--secondary-color),
-    var(--primary-color)
+    var(--tertiary-color),
+    var(--secondary-color)
   );
   padding: var(--spacing);
   border-radius: var(--border-radius);
   text-align: center;
   margin-top: 2rem;
-  box-shadow: 0 4px 20px rgba(100, 116, 139, 0.3);
+  box-shadow: 0 10px 30px rgba(94, 51, 255, 0.4);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all var(--transition-time) ease;
+  animation: glowPulse 2s infinite;
+}
+
+.total-score::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.15) 0%,
+    transparent 60%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.total-score:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(94, 51, 255, 0.5);
 }
 
 .total-score h2 {
-  color: var(--background-color);
+  color: var(--text-color);
   margin: 0;
   font-size: 1.75rem;
-  text-shadow: none;
+  text-shadow: 0 0 10px rgba(15, 14, 23, 0.5);
+}
+
+.total-score h2::after {
+  display: none;
 }
 
 #total {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
+  background: linear-gradient(to right, #ffffff, #e0e0ff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  animation: countUp 0.5s ease-out;
+  display: block;
+  margin-top: 0.5rem;
 }
 
+.science-symbol {
+  display: inline-block;
+  font-size: 2rem;
+  margin-right: 0.75rem;
+  color: var(--science-color);
+  vertical-align: middle;
+  text-shadow: 0 0 15px rgba(4, 231, 98, 0.5);
+}
+
+/* Make the tablet symbol a bit larger as it's naturally smaller */
+.science-symbol:last-of-type {
+  font-size: 2.25rem;
+}
+
+/* Adjust the label line height to accommodate the larger symbols */
+.symbol label {
+  line-height: 2;
+  display: flex;
+  align-items: center;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 4rem;
+  color: var(--muted-text);
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: relative;
+  padding: 2rem 0;
+}
+
+.footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--muted-text),
+    transparent
+  );
+}
+
+.footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all var(--transition-time) ease;
+  position: relative;
+  display: inline-block;
+}
+
+.footer a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--text-color);
+  text-shadow: 0 0 10px var(--primary-color);
+}
+
+.footer a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.heart {
+  color: #ff2b4e;
+  display: inline-block;
+  animation: heartbeat 1.5s ease infinite;
+  text-shadow: 0 0 10px rgba(255, 43, 78, 0.7);
+}
+
+.source-code {
+  opacity: 0.9;
+}
+
+/* Enhanced heartbeat animation */
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+/* Enhanced input stepper styles */
+.input-stepper {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(15, 14, 23, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all var(--transition-time) ease;
+}
+
+.input-stepper:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.input-stepper:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(15, 224, 224, 0.3);
+}
+
+.input-stepper input[type="number"] {
+  flex: 1;
+  border: none;
+  text-align: center;
+  -moz-appearance: textfield; /* Hide spinners in Firefox */
+  border-radius: 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+/* Hide spinners in Chrome, Safari, Edge, Opera */
+.input-stepper input[type="number"]::-webkit-outer-spin-button,
+.input-stepper input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.stepper-btn {
+  width: 50px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-time) ease;
+  padding: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.stepper-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.stepper-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.stepper-btn:hover::before {
+  transform: translateX(0);
+}
+
+.stepper-btn:active {
+  transform: scale(0.95);
+}
+
+.stepper-btn:focus {
+  outline: none;
+}
+
+/* Enhanced data attribute-based colors for buttons with glowing effect */
+[data-card-type="military"] .stepper-btn:hover,
+[data-card-type="military"] .stepper-btn:active {
+  background-color: var(--military-color);
+  box-shadow: 0 0 15px rgba(255, 43, 78, 0.5);
+}
+
+[data-card-type="treasury"] .stepper-btn:hover,
+[data-card-type="treasury"] .stepper-btn:active {
+  background-color: var(--treasury-color);
+  box-shadow: 0 0 15px rgba(255, 213, 0, 0.5);
+}
+
+[data-card-type="wonder"] .stepper-btn:hover,
+[data-card-type="wonder"] .stepper-btn:active {
+  background-color: var(--wonder-color);
+  box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+}
+
+[data-card-type="science"] .stepper-btn:hover,
+[data-card-type="science"] .stepper-btn:active {
+  background-color: var(--science-color);
+  box-shadow: 0 0 15px rgba(4, 231, 98, 0.5);
+}
+
+[data-card-type="civilian"] .stepper-btn:hover,
+[data-card-type="civilian"] .stepper-btn:active {
+  background-color: var(--civilian-color);
+  box-shadow: 0 0 15px rgba(0, 180, 252, 0.5);
+}
+
+[data-card-type="commercial"] .stepper-btn:hover,
+[data-card-type="commercial"] .stepper-btn:active {
+  background-color: var(--commercial-color);
+  box-shadow: 0 0 15px rgba(252, 180, 4, 0.5);
+}
+
+[data-card-type="guild"] .stepper-btn:hover,
+[data-card-type="guild"] .stepper-btn:active {
+  background-color: var(--guild-color);
+  box-shadow: 0 0 15px rgba(224, 63, 203, 0.5);
+}
+
+/* Enhanced science card styles */
+.science-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.science-card {
+  background: rgba(15, 14, 23, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--glass-border);
+  transition: all var(--transition-time) ease;
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(4, 231, 98, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Stagger the float animations */
+.science-card:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.science-card:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.science-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.science-card:hover {
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(4, 231, 98, 0.3);
+  border-color: rgba(4, 231, 98, 0.3);
+}
+
+.science-card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.science-card-header .science-symbol {
+  font-size: 2.25rem;
+  margin-right: 0.75rem;
+}
+
+.science-card-header h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+.science-card-footer {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.science-card .points-preview {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--science-color);
+  text-shadow: 0 0 10px rgba(4, 231, 98, 0.5);
+}
+
+/* Enhanced science stats */
+.science-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-box {
+  background: rgba(15, 14, 23, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  text-align: center;
+  transition: all var(--transition-time) ease;
+  border: 1px solid var(--glass-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-box::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 60%
+  );
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.stat-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.stat-box.sets {
+  border-left: 3px solid var(--science-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 0 15px rgba(4, 231, 98, 0.2);
+}
+
+.stat-box.sets:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(4, 231, 98, 0.3);
+}
+
+.stat-box.total {
+  border-left: 3px solid var(--primary-color);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15), 0 0 15px rgba(15, 224, 224, 0.2);
+}
+
+.stat-box.total:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(15, 224, 224, 0.3);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--muted-text);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-color);
+  line-height: 1;
+  margin-bottom: 0.75rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  animation: countUp 0.5s ease-out;
+}
+
+.stat-points {
+  font-size: 1rem;
+  color: var(--muted-text);
+}
+
+/* Responsive styles */
 @media (max-width: 600px) {
   .science {
     display: flex;
@@ -274,174 +986,45 @@ input[type="number"]:focus {
   }
 
   body {
-    padding: 10px;
+    padding: 15px;
   }
 
   .scoring-section {
-    padding: 15px;
+    padding: 20px;
   }
 
   .reset-button {
     width: 100%;
     margin-top: 2rem;
-    padding: 1rem;
+    padding: 1.25rem;
+  }
+
+  .science-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .science-card {
+    padding: 1.25rem;
+    animation: none; /* Disable float animation on mobile for better performance */
   }
 
   .science-card-header {
-    margin-bottom: 0.75rem;
-    text-align: center;
-    display: flex;
+    margin-bottom: 1rem;
   }
 
-  .science-card .points-preview {
-    font-size: 0.85rem;
-    color: var(--muted-text);
+  .science-card .input-stepper {
+    width: 100%;
+    margin-bottom: 1rem;
   }
-}
 
-.science-symbol {
-  display: inline-block;
-  font-size: 1.5rem;
-  margin-right: 0.5rem;
-  color: var(--science-color);
-  vertical-align: middle;
-}
-
-/* Make the tablet symbol a bit larger as it's naturally smaller */
-.science-symbol:last-of-type {
-  font-size: 1.75rem;
-}
-
-/* Adjust the label line height to accommodate the larger symbols */
-.symbol label {
-  line-height: 2;
-  display: flex;
-  align-items: center;
-}
-
-.footer {
-  text-align: center;
-  margin-top: 3rem;
-  color: var(--muted-text);
-  font-size: 0.9rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.footer a {
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer a:hover {
-  color: var(--text-color);
-}
-
-.heart {
-  color: #ef4444;
-  display: inline-block;
-  animation: heartbeat 1.5s ease infinite;
-}
-
-.source-code {
-  opacity: 0.8;
-}
-
-@keyframes heartbeat {
-  0%,
-  100% {
-    transform: scale(1);
+  .science-stats {
+    grid-template-columns: 1fr 1fr;
   }
-  50% {
-    transform: scale(1.1);
+
+  h1 {
+    font-size: 3rem;
   }
-}
 
-/* Input Stepper Styles */
-.input-stepper {
-  display: flex;
-  width: 100%;
-  height: 44px;
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.input-stepper input[type="number"] {
-  flex: 1;
-  border: none;
-  text-align: center;
-  -moz-appearance: textfield; /* Hide spinners in Firefox */
-  border-radius: 0;
-  font-size: 1.1rem;
-  padding: 0;
-  margin: 0;
-}
-
-/* Hide spinners in Chrome, Safari, Edge, Opera */
-.input-stepper input[type="number"]::-webkit-outer-spin-button,
-.input-stepper input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.stepper-btn {
-  width: 44px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: none;
-  color: var(--text-color);
-  font-size: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-  padding: 0;
-  flex-shrink: 0;
-}
-
-.stepper-btn:active {
-  background-color: var(--primary-color);
-  transform: scale(0.95);
-}
-
-.stepper-btn:focus {
-  outline: none;
-}
-
-/* Data attribute-based colors for buttons */
-[data-card-type="military"] .stepper-btn:active {
-  background-color: var(--military-color);
-}
-
-[data-card-type="treasury"] .stepper-btn:active {
-  background-color: var(--treasury-color);
-}
-
-[data-card-type="wonder"] .stepper-btn:active {
-  background-color: var(--wonder-color);
-}
-
-[data-card-type="science"] .stepper-btn:active {
-  background-color: var(--science-color);
-}
-
-[data-card-type="civilian"] .stepper-btn:active {
-  background-color: var(--civilian-color);
-}
-
-[data-card-type="commercial"] .stepper-btn:active {
-  background-color: var(--commercial-color);
-}
-
-[data-card-type="guild"] .stepper-btn:active {
-  background-color: var(--guild-color);
-}
-
-/* Make sure the science section still works properly with the new inputs */
-@media (max-width: 600px) {
   .symbol {
     flex-direction: column;
     align-items: flex-start;
@@ -449,11 +1032,22 @@ input[type="number"]:focus {
 
   .symbol .input-stepper {
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .points-preview {
     align-self: flex-end;
+  }
+}
+
+/* Add fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .scoring-section,
+  .science-card,
+  .stat-box,
+  .science-info,
+  .input-stepper {
+    background-color: rgba(15, 14, 23, 0.9);
   }
 }
 
@@ -465,136 +1059,5 @@ input[type="number"]:focus {
 
   .stepper-btn:active {
     opacity: 0.7;
-  }
-}
-
-/* Science Section Redesign */
-.science-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-.science-card {
-  background-color: rgba(255, 255, 255, 0.03);
-  border-radius: var(--border-radius);
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.science-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.science-card-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.science-card-header .science-symbol {
-  font-size: 2rem;
-  margin-right: 0.75rem;
-}
-
-.science-card-header h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin: 0;
-}
-
-.science-card-footer {
-  margin-top: 0.75rem;
-  text-align: center;
-}
-
-.science-card .points-preview {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.science-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.stat-box {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: var(--border-radius);
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.2s ease;
-}
-
-.stat-box:hover {
-  transform: translateY(-2px);
-}
-
-.stat-box.sets {
-  border-left: 3px solid var(--science-color);
-}
-
-.stat-box.total {
-  border-left: 3px solid var(--primary-color);
-}
-
-.stat-label {
-  font-size: 0.9rem;
-  color: var(--muted-text);
-  margin-bottom: 0.5rem;
-}
-
-.stat-value {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-color);
-  line-height: 1;
-  margin-bottom: 0.5rem;
-}
-
-.stat-points {
-  font-size: 0.9rem;
-  color: var(--muted-text);
-}
-
-/* Update mobile styles for science cards */
-@media (max-width: 600px) {
-  .science-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .science-card {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .science-card-header {
-    margin-bottom: 0.75rem;
-    text-align: center;
-  }
-
-  .science-card .input-stepper {
-    width: 100%;
-    margin-bottom: 0.75rem;
-  }
-
-  .science-card-footer {
-    width: 100%;
-    text-align: center;
-  }
-
-  .science-stats {
-    grid-template-columns: 1fr 1fr;
   }
 }
