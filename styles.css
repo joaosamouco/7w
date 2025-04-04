@@ -4,8 +4,8 @@
   --secondary-color: #fe53bb; /* Hot pink */
   --tertiary-color: #5e33ff; /* Electric purple */
   --accent-color: #09fbd3; /* Mint green */
-  --background-color: #0f0e17; /* Dark background with blue undertones */
-  --section-bg: rgba(15, 14, 23, 0.5); /* Semi-transparent for glass effect */
+  --background-color: #060609; /* Darker background for more contrast */
+  --section-bg: rgba(10, 9, 15, 0.5); /* Semi-transparent for glass effect */
   --text-color: #f8f9ff; /* Bright white with blue tint */
   --muted-text: #8f8dbb; /* Lighter muted text */
   --border-radius: 12px;
@@ -102,9 +102,9 @@ body {
   background: linear-gradient(
     45deg,
     var(--background-color),
-    #17143a,
-    #0c0c1d,
-    #180b28
+    #0a0920,
+    #07070f,
+    #0c0618
   );
   background-size: 400% 400%;
   animation: gradientAnimation 15s ease infinite;
@@ -308,7 +308,6 @@ h1 {
 }
 
 .scoring-section:hover {
-  transform: translateY(-5px);
   box-shadow: 0 15px 35px var(--glass-shadow);
 }
 
@@ -346,6 +345,55 @@ h2 {
   font-weight: 600;
   position: relative;
   display: inline-block;
+}
+
+/* Card type subtitle styling */
+.card-type {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted-text);
+  margin-top: -1.2rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  position: relative;
+}
+
+/* Colorize the card type text based on card type */
+[data-card-type="military"] .card-type {
+  color: var(--military-color);
+  text-shadow: 0 0 5px rgba(255, 43, 78, 0.3);
+}
+
+[data-card-type="treasury"] .card-type {
+  color: var(--treasury-color);
+  text-shadow: 0 0 5px rgba(255, 213, 0, 0.3);
+}
+
+[data-card-type="wonder"] .card-type {
+  color: var(--wonder-color);
+  text-shadow: 0 0 5px rgba(157, 78, 221, 0.3);
+}
+
+[data-card-type="science"] .card-type {
+  color: var(--science-color);
+  text-shadow: 0 0 5px rgba(4, 231, 98, 0.3);
+}
+
+[data-card-type="civilian"] .card-type {
+  color: var(--civilian-color);
+  text-shadow: 0 0 5px rgba(0, 180, 252, 0.3);
+}
+
+[data-card-type="commercial"] .card-type {
+  color: var(--commercial-color);
+  text-shadow: 0 0 5px rgba(252, 180, 4, 0.3);
+}
+
+[data-card-type="guild"] .card-type {
+  color: var(--guild-color);
+  text-shadow: 0 0 5px rgba(224, 63, 203, 0.3);
 }
 
 /* Underline effect for headings */
@@ -522,7 +570,6 @@ input[type="number"]:focus {
 }
 
 .total-score:hover {
-  transform: translateY(-5px);
   box-shadow: 0 15px 40px rgba(94, 51, 255, 0.5);
 }
 
@@ -807,19 +854,9 @@ input[type="number"]:focus {
   flex-direction: column;
   border: 1px solid var(--glass-border);
   transition: all var(--transition-time) ease;
-  animation: float 6s ease-in-out infinite;
   box-shadow: 0 8px 32px 0 var(--glass-shadow), 0 0 15px rgba(4, 231, 98, 0.2);
   position: relative;
   overflow: hidden;
-}
-
-/* Stagger the float animations */
-.science-card:nth-child(2) {
-  animation-delay: 0.5s;
-}
-
-.science-card:nth-child(3) {
-  animation-delay: 1s;
 }
 
 .science-card::before {
@@ -839,7 +876,6 @@ input[type="number"]:focus {
 }
 
 .science-card:hover {
-  transform: translateY(-7px) scale(1.02);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), 0 0 20px rgba(4, 231, 98, 0.3);
   border-color: rgba(4, 231, 98, 0.3);
 }
@@ -915,7 +951,6 @@ input[type="number"]:focus {
 }
 
 .stat-box:hover {
-  transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -1008,7 +1043,6 @@ input[type="number"]:focus {
 
   .science-card {
     padding: 1.25rem;
-    animation: none; /* Disable float animation on mobile for better performance */
   }
 
   .science-card-header {
